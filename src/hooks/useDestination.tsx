@@ -135,7 +135,7 @@ export function DestinationProvider({ children }: DestinationProviderProps) {
       setGoal("");
     } catch (error) {
       toast.error(
-        "Erro no formato dos datos, insira valores válidos e tente novamente"
+        "Erro no formato dos datos, insira valores válidos e tente novamente!"
       );
     }
   };
