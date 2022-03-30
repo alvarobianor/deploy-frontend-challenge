@@ -11,6 +11,30 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.min.css";
 
+interface Flags {
+  png: string;
+  svg: string;
+}
+
+interface Translations {
+  br: string;
+  de: string;
+  es: string;
+  fa: string;
+  fr: string;
+  hr: string;
+  hu: string;
+  it: string;
+  ja: string;
+  nl: string;
+  pt: string;
+}
+
+interface Data {
+  flags: Flags;
+  translations: Translations;
+}
+
 interface APIData {
   name: string;
   flag: string;
@@ -83,14 +107,16 @@ export function DestinationProvider({ children }: DestinationProviderProps) {
   useEffect(() => {
     const loadData = async (): Promise<void> => {
       const { data } = await axios.get(
-        "https://restcountries.eu/rest/v2/all?fields=translations;flag"
+        "https://restcountries.com/v2/all?fields=translations,flags"
       );
-      const filteredValues = data.map((elem: any) => {
+
+      const filteredValues = data.map((elem: Data) => {
         return {
           name: elem.translations.br,
-          flag: elem.flag,
+          flag: elem.flags.svg,
         } as APIData;
       });
+
       const orderedCountriesByName = _.orderBy(
         filteredValues,
         ["name"],
@@ -116,6 +142,7 @@ export function DestinationProvider({ children }: DestinationProviderProps) {
         throw new Error("Invalid data!");
       }
       const data = countries.find((elem) => elem.name === country);
+
       const response = await api.post("/destinies", {
         goal,
         place,

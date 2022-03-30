@@ -1,7 +1,7 @@
 import Modal from "react-modal";
 import * as S from "./styles";
 import CloseButtonImg from "assets/close/close.svg";
-import { FormEvent, useEffect, useState } from "react";
+import { FormEvent, useState } from "react";
 import { useDestination } from "hooks/useDestination";
 import InputMask from "react-input-mask";
 
@@ -39,10 +39,6 @@ export function EditDestinationModal({ isOpen, onRequestClose }: ModalProps) {
 
     onRequestClose();
   };
-
-  useEffect(() => {
-    console.log("Goal: ", goal);
-  }, [goal]);
 
   return (
     <Modal
